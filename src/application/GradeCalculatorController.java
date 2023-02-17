@@ -36,18 +36,29 @@ public class GradeCalculatorController {
      * If the value entered is not a valid percentage grade, this method will return 0.0 as the 
      * project grade instead.
      * 
+     * This Will Also accept grade input values as decimals(not more than 1)
+     * 
      * @param valueEntered a string that holds a value entered by the user intended to be a project grade
      * @return the project value entered by the user if it is valid % grade and 0 otherwise
      */
     double getProjectGrade(String valueEntered) {
     	// Check that the entered value by the user is a valid decimal number
     	boolean validProjectGrade = true;
+    	int dec=0;
     	for (char c : valueEntered.toCharArray()) {
     		//Check if the character is a digit
     		if (!Character.isDigit(c) && c !='.') { // The && c !='.' is added to skip the decimal and not
-    			validProjectGrade = false;			//show an error message.
+    			validProjectGrade = false;			//show an error message. CREDIT(Topic 3.2): https://www.baeldung.com/java-using-not-in-if-conditions
     			projectErrorLabel.setText("Do no use "+ c +" in a project grade. Make sure to enter a number.");
     		}
+			if (c == '.') {
+				dec= dec + 1; 		//Doesn't let the user enter more than 1 decimal point
+			}
+
+			if (dec>1) { 			// Gives error when tried to enter >1 decimal point
+				validProjectGrade = false;
+				projectErrorLabel.setText("Don't use 2 decimals in a project grade. Make sure to enter a valid input");
+			}
     	}
     	// Convert the string entered by the user to double if the input is a valid number
     	// Otherwise the project grade will default to zero.
@@ -70,8 +81,20 @@ public class GradeCalculatorController {
 
     @FXML
     void calculateGrade(ActionEvent event) {
+    	/**
+    	 * 
+    	 * This is all the calculations where the total grade will be displayed in multiple line 
+    	 * in the console and the final one in the UI Window
+    	 * The Grade division is the following:
+    	 * Project Grade: 40%
+    	 * Quiz Grade: 30%
+    	 * Required CC + Optional CC Grade: 30%
+    	 * (CC=Coding Challenges)
+    	 * 
+    	 */
     	projectErrorLabel.setText("");
     	double courseGrade = 0.0;
+    	
     	
     	String projectValueEntered = projectGradeTextfield.getText();
     	
