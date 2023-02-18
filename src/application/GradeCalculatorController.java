@@ -86,9 +86,9 @@ public class GradeCalculatorController {
     	 * This is all the calculations where the total grade will be displayed in multiple line 
     	 * in the console and the final one in the UI Window
     	 * The Grade division is the following:
-    	 * Project Grade: 40%
-    	 * Quiz Grade: 30%
-    	 * Required CC + Optional CC Grade: 30%
+    	 * Project Grade: 50%
+    	 * Quiz Grade: 25%
+    	 * Required CC + Optional CC Grade: 25%
     	 * (CC=Coding Challenges)
     	 * 
     	 */
@@ -100,20 +100,20 @@ public class GradeCalculatorController {
     	
     	double projectGrade= getProjectGrade(projectValueEntered);
     	
-        courseGrade = courseGrade + projectGrade * 40 / 100;
+        courseGrade = courseGrade + projectGrade * 50 / 100;
     	
         System.out.println("Project grade " + projectGrade + " Course grade so far: " + courseGrade);
     	
     	double quizGrade = quizSlider.getValue();
-    	courseGrade = courseGrade + (quizGrade * 3);
+    	courseGrade = courseGrade + (quizGrade * 2.5);
     	System.out.println("Quiz grade " + quizGrade + " Course grade so far: " + courseGrade);
     	
     	int codingChallengesPassed = ccChoiceBox.getValue();
-    	courseGrade = courseGrade + (codingChallengesPassed * 1.5);
+    	courseGrade = courseGrade + (codingChallengesPassed * 1.25);
     	System.out.println("Coding Challanges passed:  " + codingChallengesPassed + " Course grade so far: " + courseGrade);
     	
     	int optionalcodingChallengesPassed = occChoiceBox.getValue();	//These 3 lines are exactly the same, but for Optional CCs
-    	courseGrade = courseGrade + (optionalcodingChallengesPassed * 1.5);
+    	courseGrade = courseGrade + (optionalcodingChallengesPassed * 1.25);
     	System.out.println("Optional Coding Challanges passed:  " + optionalcodingChallengesPassed + " Course grade so far: " + courseGrade);
 
     	courseGradeLabel.setText(String.format("Your course grade is %.2f", courseGrade));
