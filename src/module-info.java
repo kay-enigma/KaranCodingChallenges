@@ -4,6 +4,7 @@ module MyFirstProject {
 	requires javafx.graphics;
 	requires javafx.base;
 	requires java.desktop;
+	requires junit;
 	
 	opens application to javafx.graphics, javafx.fxml;
 }
