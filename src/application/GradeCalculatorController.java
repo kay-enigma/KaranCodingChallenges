@@ -64,6 +64,8 @@ public class GradeCalculatorController {
     	int compNum=quizzesCompletedChoiceBox.getValue();
     	int compRows=0;
     	VBox compQuizGradeContainer=new VBox();
+
+    	compQuizGradeContainer.getChildren().add(quizErrorLabel);
     	
     	ArrayList<TextField> compQuizGradeTextfields=new ArrayList<TextField>();
     	while(compRows<compNum) {
@@ -88,39 +90,9 @@ public class GradeCalculatorController {
     	Scene compQuizGradesScene=new Scene(compQuizGradeContainer);
     	applicationStage.setScene(compQuizGradesScene);
     }
-
-
-	double CompQuizAvg=0.0;
-    /**
-     * This method is there to calculate the average value of compulsory coding challenges.
-     * @param mainScene is the main window of the Grade Calculator
-     * @param compQuizGradeTextfields is the field where the user will input the values of compulsory coding challenges 
-     */
-    void calculateCompAverageQuizGrade(Scene mainScene,ArrayList<TextField> compQuizGradeTextfields)
-    {
-    	quizErrorLabel.setText("");
-    	
-    	double weightPerQuiz = .1/15.0;
-    	
-    	CompQuizAvg = 0.0;
-    	boolean validquizGrade = false;
-    	    	   	
-    	for (TextField quizGradeTextfield : compQuizGradeTextfields) {
-    		Grade quizGrade = new Grade(0,10,weightPerQuiz);
-    		String errorMessage=quizGrade.setValue(quizGradeTextfield.getText());
-    		if (!errorMessage.equals("")) {
-    			validquizGrade=true;
-    			quizErrorLabel.setText(errorMessage);
-    		}	
-    		CompQuizAvg+= quizGrade.getWeightedPercentageGrade();
-    		compulsoryAvg.setText(String.format("Quiz Average: %.2f", CompQuizAvg));
-    	}
-    	if(!validquizGrade) {
-    		applicationStage.setScene(mainScene);
-    	}
-    	
-    }
-    /**
+	
+	
+	/**
      * This method creates the window in which we will accept the optional quiz values.
      * @param compEnterQuizGradeEvent is the action of the button which brings us to another window to enter compulsory coding challenge values
      */
@@ -165,6 +137,39 @@ public class GradeCalculatorController {
     	Scene optQuizGradesScene=new Scene(optQuizGradeContainer);
     	applicationStage.setScene(optQuizGradesScene);
     }
+	
+	
+	double CompQuizAvg=0.0;
+    /**
+     * This method is there to calculate the average value of compulsory coding challenges.
+     * @param mainScene is the main window of the Grade Calculator
+     * @param compQuizGradeTextfields is the field where the user will input the values of compulsory coding challenges 
+     */
+    void calculateCompAverageQuizGrade(Scene mainScene,ArrayList<TextField> compQuizGradeTextfields)
+    {
+    	quizErrorLabel.setText("");
+    	
+    	double weightPerQuiz = .1/15.0;
+    	
+    	CompQuizAvg = 0.0;
+    	boolean validquizGrade = false;
+    	    	   	
+    	for (TextField quizGradeTextfield : compQuizGradeTextfields) {
+    		Grade quizGrade = new Grade(0,10,weightPerQuiz);
+    		String errorMessage=quizGrade.setValue(quizGradeTextfield.getText());
+    		if (!errorMessage.equals("")) {
+    			validquizGrade=true;
+    			quizErrorLabel.setText(errorMessage);
+    		}	
+    		CompQuizAvg+= quizGrade.getWeightedPercentageGrade();
+    		compulsoryAvg.setText(String.format("Quiz Average: %.2f", CompQuizAvg));
+    	}
+    	if(!validquizGrade) {
+    		applicationStage.setScene(mainScene);
+    	}
+    	
+    }
+    
 
 
 	double OptQuizAvg=0.0;
