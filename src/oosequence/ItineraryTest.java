@@ -89,7 +89,7 @@ public class ItineraryTest {
 			
 			ArrayList<Flight> list = c.getFlights();
 			
-			assertEquals("Expected list of size 6 after adding 7 flights, with one overlapping flight", 6, list.size());			
+			assertEquals("Expected list of size 6 after adding 7 flights, with one overlapping flight", 6, list.size());
 			assertEquals("flight 1 test - testing departure", getDate(2019,1,1,10,0), list.get(0).getDeparture());
 			assertEquals("flight 2 test - testing departure", getDate(2019,1,1,11,30), list.get(1).getDeparture());
 			assertEquals("flight 3 test - testing departure", getDate(2019,1,1,14,50), list.get(2).getDeparture());

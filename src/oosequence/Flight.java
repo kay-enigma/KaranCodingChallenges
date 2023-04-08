@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Flight {
 
-    public Date departure;
-    public Date arrival;
+    private Date departure;
+    private Date arrival;
 
     public Flight(Date departure, Date arrival) {
         if (departure == null || arrival == null || departure.before(arrival)) {
@@ -45,5 +45,8 @@ public class Flight {
         }
         return 0;
     }
-
+    
+    public boolean overlapsWith(Flight flight) {
+        return !departure.after(flight.getArrival()) && !arrival.before(flight.getDeparture());
+    }
 }
