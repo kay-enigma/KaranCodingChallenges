@@ -3,18 +3,24 @@ package oosequence;
 import java.util.Date;
 
 public class Flight extends TripComponent {
-	private String departureAirport="";
-	private String arrivalAirport="";
+
+	private String departureAirport;
+	private String arrivalAirport;
 	
-	public void setDepartureAirport(String givenAirport) {
-		 if (givenAirport==null)
-			 departureAirport="";
-		 if (givenAirport!=null) {
-			 if (givenAirport.length()<3||givenAirport.length()>3)
-				 departureAirport="";	
-			 else 
-				 departureAirport=givenAirport;
-		 }
+	public Flight(Date Start, Date End, String departure, String arrival) {
+		// TODO Auto-generated constructor stub
+		setDepartureAirport(departure);
+		setStart(Start);
+		departureAirport=getDepartureAirport();
+		setArrivalAirport(arrival);
+		setEnd(End);
+		arrivalAirport=getArrivalAirport();
+	}
+	public Flight(Flight ch) {
+		// TODO Auto-generated constructor stub
+		super(ch);
+		departureAirport=ch.departureAirport;
+		arrivalAirport=ch.arrivalAirport;
 	}
 	public void setArrivalAirport(String givenAirport) {
 	 	if (givenAirport==null)arrivalAirport="";	
@@ -23,18 +29,24 @@ public class Flight extends TripComponent {
 	 		else arrivalAirport=givenAirport;
 	 	}
 	}
-	public String getDepartureAirport() {
-		return departureAirport;
-		}
-
-	public String getArrivalAirport() {
-		return arrivalAirport;
+	public void setDepartureAirport(String givenAirport) {
+		 if (givenAirport==null)departureAirport="";
+		 if (givenAirport!=null) {
+			 if (givenAirport.length()<3||givenAirport.length()>3)departureAirport="";	
+			 else departureAirport=givenAirport;
+		 }
 	}
 	
-	public String getDuration() {
-		long durationInSeconds = super.lengthInSeconds();
-        long durationInMinutes = durationInSeconds / 60;// Called in the superclass rather than duplicate code 
-        return durationInMinutes + " minutes";
-
+	public String getArrivalAirport() {return arrivalAirport;}
+	public String getDepartureAirport() {return departureAirport;}
+	@Override
+	public String getStart() {
+		return departureAirport+" "+super.getStart();
+		
 	}
+	@Override
+	public String getEnd(){
+		return arrivalAirport+" "+super.getEnd();
+	}
+
 }
