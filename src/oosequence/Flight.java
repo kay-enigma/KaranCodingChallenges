@@ -2,51 +2,39 @@ package oosequence;
 
 import java.util.Date;
 
-public class Flight {
+public class Flight extends TripComponent {
+	private String departureAirport="";
+	private String arrivalAirport="";
+	
+	public void setDepartureAirport(String givenAirport) {
+		 if (givenAirport==null)
+			 departureAirport="";
+		 if (givenAirport!=null) {
+			 if (givenAirport.length()<3||givenAirport.length()>3)
+				 departureAirport="";	
+			 else 
+				 departureAirport=givenAirport;
+		 }
+	}
+	public void setArrivalAirport(String givenAirport) {
+	 	if (givenAirport==null)arrivalAirport="";	
+	 	if (givenAirport!=null) {
+	 		if (givenAirport.length()<3||givenAirport.length()>3) arrivalAirport="";
+	 		else arrivalAirport=givenAirport;
+	 	}
+	}
+	public String getDepartureAirport() {
+		return departureAirport;
+		}
 
-    private Date departure;
-    private Date arrival;
+	public String getArrivalAirport() {
+		return arrivalAirport;
+	}
+	
+	public String getDuration() {
+		long durationInSeconds = super.lengthInSeconds();
+        long durationInMinutes = durationInSeconds / 60;// Called in the superclass rather than duplicate code 
+        return durationInMinutes + " minutes";
 
-    public Flight(Date departure, Date arrival) {
-        if (departure == null || arrival == null || departure.before(arrival)) {
-            this.departure = departure;
-            this.arrival = arrival;
-        }
-    }
-
-    public Flight(Flight flight) {
-        this(flight.departure, flight.arrival);
-    }
-
-    public Date getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(Date departure) {
-        if (departure == null || this.arrival == null || departure.before(this.arrival)) {
-            this.departure = departure;
-        }
-    }
-
-    public Date getArrival() {
-        return arrival;
-    }
-
-    public void setArrival(Date arrival) {
-        if (arrival == null || this.departure == null || this.departure.before(arrival)) {
-            this.arrival = arrival;
-        }
-    }
-
-    public long length() {
-        if (departure != null && arrival != null) {
-            long duration = arrival.getTime() - departure.getTime();
-            return (long) Math.floor(duration / (1000.0 * 60.0));
-        }
-        return 0;
-    }
-    
-    public boolean overlapsWith(Flight flight) {
-        return !departure.after(flight.getArrival()) && !arrival.before(flight.getDeparture());
-    }
+	}
 }
