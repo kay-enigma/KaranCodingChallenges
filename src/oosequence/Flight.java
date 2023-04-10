@@ -4,49 +4,67 @@ import java.util.Date;
 
 public class Flight {
 
-    private Date departure;
-    private Date arrival;
+	private Date departure;
+	private Date arrival;
 
-    public Flight(Date departure, Date arrival) {
-        if (departure == null || arrival == null || departure.before(arrival)) {
-            this.departure = departure;
-            this.arrival = arrival;
-        }
-    }
+	public Flight(Date givenDep, Date givenArr) {
+		if (givenDep == null&& givenArr == null) {
+			this.departure=givenDep;
+			this.arrival=givenArr;
+		}
+		
+		else if (givenDep == null&& givenArr != null) {
+			this.departure = givenDep;
+			this.arrival = new Date(givenArr.getTime());   
+		}
+		else if (givenDep != null&& givenArr == null) {
+			this.departure = new Date(givenDep.getTime());
+			this.arrival = givenArr;   
+		}
+		
+		else if (givenDep.before(givenArr)) {
+			setDeparture(givenDep);
+			setArrival(givenArr);
+			
+			this.departure = getDeparture();
+			this.arrival = getArrival();
+		}
+	}
+	
+	public Date getDeparture() {
+		if(departure!=null) return new Date(departure.getTime());
+		return departure;
+	}
+	public Date getArrival() {
+		if(arrival!=null) return new Date(arrival.getTime());
+		return arrival;
+	}
+	public void setDeparture(Date date) {	
+		if(date == null || arrival == null)this.departure = date;
 
-    public Flight(Flight flight) {
-        this(flight.departure, flight.arrival);
-    }
-
-    public Date getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(Date departure) {
-        if (departure == null || this.arrival == null || departure.before(this.arrival)) {
-            this.departure = departure;
-        }
-    }
-
-    public Date getArrival() {
-        return arrival;
-    }
-
-    public void setArrival(Date arrival) {
-        if (arrival == null || this.departure == null || this.departure.before(arrival)) {
-            this.arrival = arrival;
-        }
-    }
-
-    public long length() {
-        if (departure != null && arrival != null) {
-            long duration = arrival.getTime() - departure.getTime();
-            return (long) Math.floor(duration / (1000.0 * 60.0));
-        }
-        return 0;
-    }
-    
-    public boolean overlapsWith(Flight flight) {
-        return !departure.after(flight.getArrival()) && !arrival.before(flight.getDeparture());
-    }
+		else if (date.before(arrival)) {
+			this.departure = date;
+		}
+	} 
+	public void setArrival(Date date) { 
+		if(date == null || departure ==null)this.arrival = date;
+		
+		else if (departure.before(date)) {
+			this.arrival = date;
+		}
+	}
+	public Flight(Flight c) {
+		this.departure = c.departure;
+		this.arrival = c.arrival;
+	}
+	public long length() {
+		if(departure==null) return 0;
+		if(departure!=null & arrival!=null ) {
+			long departTime = this.departure.getTime();
+			long arriveTime = this.arrival.getTime();
+			long diff = (arriveTime-departTime)/60000;
+			return diff;
+		}		
+		return 0;
+	}
 }
