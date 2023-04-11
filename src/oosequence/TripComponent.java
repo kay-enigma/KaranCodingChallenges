@@ -27,14 +27,19 @@ public class TripComponent {
 		}
 	}
 	
-	public TripComponent() {
-		// TODO Auto-generated constructor stub
+	/*public TripComponent() {
 		Date temp = new Date();
 		start = temp;
 		end=new Date(temp.getTime() + 3600000);
 		
 		
-	}
+	}*/ 
+	
+	/* ^^THIS WAS DONE; 
+	 * In this case, the default constructor initializes the start 
+	 * and end variables with a default value of the current date plus one hour.
+		And to not have default constructor  we need to remove the default constructor from the 
+		TripComponent class */
 
 	public TripComponent(TripComponent c) {
 		// TODO Auto-generated constructor stub
