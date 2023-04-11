@@ -4,92 +4,103 @@ import java.util.Date;
 
 public class TripComponent {
 
-	private Date start;
-	private Date end;
+	private Date start_Time;
+	private Date end_Time;
 
-	public TripComponent(Date givenDeparture, Date givenArrival) {
+	
+	public TripComponent(Date gvn_dep, Date gvn_Arr) {
 		
-		if (givenDeparture == null || givenArrival == null) {
-			start = givenDeparture;
-			end = givenArrival;   
+		if (gvn_dep == null || gvn_Arr == null) {
+			
+			start_Time = gvn_dep;
+			end_Time = gvn_Arr;   
 		}
 		
-		if(givenDeparture != null && givenArrival != null) {
+		if(gvn_dep != null && gvn_Arr != null) {
 			
-			if(givenDeparture.after(givenArrival)||givenDeparture.equals(givenArrival)) {
-				start = givenDeparture;
-				end = null;
+			if(gvn_dep.after(gvn_Arr)||gvn_dep.equals(gvn_Arr)) {
+				
+				start_Time = gvn_dep;
+				end_Time = null;
 			}
-			else if(givenDeparture.before(givenArrival)){
-				start = givenDeparture;
-				end = givenArrival;
+			else if(gvn_dep.before(gvn_Arr)){
+				
+				start_Time = gvn_dep;
+				end_Time = gvn_Arr;
 			}
 		}
 	}
 	
-	/*public TripComponent() {
-		Date temp = new Date();
-		start = temp;
-		end=new Date(temp.getTime() + 3600000);
+	public TripComponent() {
+		Date temp_Flight = new Date();
+		start_Time = temp_Flight;
+		end_Time=new Date(temp_Flight.getTime() + 3600000);
 		
 		
-	}*/ 
-	
-	/* ^^THIS WAS DONE; 
-	 * In this case, the default constructor initializes the start 
-	 * and end variables with a default value of the current date plus one hour.
-		And to not have default constructor  we need to remove the default constructor from the 
-		TripComponent class */
+	}
 
-	public TripComponent(TripComponent c) {
-		// TODO Auto-generated constructor stub
-		start=c.start;
-		end=c.end;
+	public TripComponent(TripComponent C) {
+		
+		start_Time=C.start_Time;
+		end_Time=C.end_Time;
 	}
 
 	public String getStart() {
-		if(start==null)return "";
-		if(start!=null)return start.toString();
+		
+		if(start_Time==null)return "";
+		if(start_Time!=null)return start_Time.toString();
 		return "";
 	}
 	public String getEnd() {
-		if(end==null)return "";
-		if(end!=null)return end.toString();
+		
+		if(end_Time==null) {
+			return "";
+		}
+		if(end_Time!=null) {
+			return end_Time.toString();
+		}
 		return "";
 	}
-	public void setStart(Date date) {	
-		if(date == null || end == null)start = date;
+	public void setStart(Date date_1) {	
+		
+		if(date_1 == null || end_Time == null) {
+			start_Time = date_1;
+		}
 
-		else if (date.before(end))start = date;
+		else if (date_1.before(end_Time)) {
+			start_Time = date_1;
+		}
 	}
-	public void setEnd(Date date) { 
+	public void setEnd(Date date_2) { 
 		
-		if(date == null || start ==null)end = date;
+		if(date_2 == null || start_Time ==null)end_Time = date_2;
 		
-		else if (start.before(date))end = date;
+		else if (start_Time.before(date_2))end_Time = date_2;
 	}
 
 	protected long lengthInSeconds() {
-		long diff = 0;
-		if(start==null||end==null) return diff;
-		if(start!=null & end!=null ) {
-			long departTime = start.getTime();
-			long arriveTime = end.getTime();
-			return diff = (arriveTime-departTime)/1000;
+		long diff_Time = 0;
+		if( start_Time == null  ||  end_Time == null ) {
+			return diff_Time;
 		}
-		return diff;			
+		if( start_Time != null  &  end_Time != null ) {
+			long dep_Time = start_Time.getTime();
+			long arr_Time = end_Time.getTime();
+			return diff_Time = (arr_Time-dep_Time)/1000;
+		}
+		return diff_Time;			
 	}
-	public Boolean isBefore(TripComponent m) {
+	public Boolean isBefore(TripComponent M) {
 		
-		if (this.end.getTime()<m.start.getTime()) {	
+		if ( this.end_Time.getTime() < M.start_Time.getTime() ) {	
 			return true;
 		}
 		return false;
 		}
 	
-	public Boolean overlapsWith(TripComponent m) {
-		if( !(start==null) && !(end==null) && !(m.start==null) && !(m.end==null)) {
-		return !( this.isBefore(m));
+	public Boolean overlapsWith(TripComponent M) {
+		if( !(start_Time==null) && !(end_Time==null) && !(M.start_Time==null) && !(M.end_Time==null)) {
+		return !( this.isBefore(M));
 		}
 		//if(end.after(m.start)||m.start.after(start)&&m.end.before(end)||start.before(m.start)&&end.after(m.end))return true;
 			
