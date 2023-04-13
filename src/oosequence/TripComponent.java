@@ -31,13 +31,7 @@ public class TripComponent {
 		}
 	}
 	
-	public TripComponent() {
-		Date temp_Flight = new Date();
-		start_Time = temp_Flight;
-		end_Time=new Date(temp_Flight.getTime() + 3600000);
-		
-		
-	}
+	
 
 	public TripComponent(TripComponent C) {
 		
